@@ -9,14 +9,10 @@ const int MaxN=10086,MaxM=1e5+10086;
 const LL inf=LLONG_MAX/2;
 int n,m,S,T,tot;
 LL va[MaxM<<1],ans;
-int fir[MaxN],to[MaxM<<1],nex[MaxM<<1],dis[MaxN];
+int fir[MaxN],to[MaxM<<1],nex[MaxM<<1],dis[MaxN],cur[MaxN];
 int Q[MaxN<<1],h,t;
 void addEdge(int x,int y,LL v){
-    nex[tot]=fir[x];
-    fir[x]=tot;
-    to[tot]=y;
-    va[tot]=v;
-    tot++;
+    nex[tot]=fir[x];fir[x]=tot;to[tot]=y;va[tot]=v;tot++;
 }
 bool BFS(){
     memset(dis,0,sizeof dis);
@@ -38,16 +34,18 @@ bool BFS(){
 LL DFS(int x,LL MF){
     if(x==T||MF==0)return MF;
     int Mini=0,cost=0;
-    for(int i=fir[x];~i;i=nex[i]){
+    for(int &i=cur[x];~i;i=nex[i]){
         if(va[i]==0)continue;
         int v=to[i];
         if(dis[v]!=dis[x]+1)continue;
         cost=DFS(v,min(va[i],MF));
-        va[i]-=cost;
-        va[i^1]+=cost;
-        Mini+=cost;
-        MF-=cost;
-        if(!MF)break;
+        if(cost){
+            va[i]-=cost;
+            va[i^1]+=cost;
+            Mini+=cost;
+            MF-=cost;
+            if(!MF)break;
+        }else dis[v]=0;
     }
     return Mini;
 }
@@ -61,6 +59,7 @@ int main(){
         addEdge(y,x,0);
     }
     while(BFS()){
+        for(int i=1;i<=n;i++)cur[i]=fir[i];
         ans+=DFS(S,inf);
     }
     printf("%lld",ans);
