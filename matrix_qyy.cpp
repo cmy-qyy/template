@@ -4,6 +4,8 @@ const int N=100;
 const int M=100;
 template<class T,int N,int M>
 class Matrix{
+    private:
+    char ch[10];
     public:
     T n,m,A[N][M];
     Matrix(int _n=0,int _m=0):n(_n),m(_m){memset(A,0,sizeof(A));}
@@ -15,15 +17,21 @@ class Matrix{
 		    ans.A[i][j]+=a.A[i][k]*b.A[k][j];
 	return ans;
     }
+    void pre(){
+        if(typeid(T).name()==typeid(int).name()) sprintf(ch,"%%d "); 
+        if(typeid(T).name()==typeid(long long).name())sprintf(ch,"%%lld ");
+    }
     void scan(){
+    pre();
     for(int i=0;i<n;i++)
 	for(int j=0;j<m;j++)
-	    scanf("%lld ",&A[i][j]);
+	    scanf(ch,&A[i][j]);
     }
     void print(){
+    pre();
     for(int i=0;i<n;i++,printf("\n"))
 	for(int j=0;j<m;j++)
-	    printf("%lld ",A[i][j]);
+	    printf(ch,A[i][j]);
     }
 };
 int main(){
