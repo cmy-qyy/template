@@ -103,8 +103,8 @@ public:
         }
         pushDown(k);
         int mid=(sl+sr)>>1;
-        if(l<=mid)update(k<<1,l,r,_p,_t);
-        if(r>mid)update(k<<1|1,l,r,_p,_t);
+        if(l<=mid)update(ls,l,r,_p,_t);
+        if(r>mid)update(rs,l,r,_p,_t);
         pushUp(k);
     }
 private:
