@@ -41,7 +41,7 @@ public:
         }
     }
 protected:
-    struct node{
+    struct Node{
         int fa,son,depth,id,size,top,v;
     }node[Mx];
     int fir[Mx],nex[Mx<<1],to[Mx<<1],tot;
