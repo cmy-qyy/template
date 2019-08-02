@@ -12,8 +12,8 @@ class Matrix{
     friend Matrix<T,N,M> operator * (Matrix<T,N,M> a ,Matrix<T,N,M> b){
 	Matrix<T,N,M> ans(a.n,b.m);
 	for(int i=0;i<a.n;i++)
-	    for(int j=0;j<b.m;j++)
-		for(int k=0;k<a.m;k++)
+	    for(int k=0;k<a.m;k++)
+		for(int j=0;j<b.m;j++)
 		    ans.A[i][j]+=a.A[i][k]*b.A[k][j];
 	return ans;
     }
